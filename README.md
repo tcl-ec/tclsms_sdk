@@ -66,8 +66,7 @@ String appkey = "5f03a35d00ee52a21327ab048186a2h1";
 // 需要发送短信的手机号码
 String[] phoneNumbers = {"21212313123", "12345678902", "12345678903"};
 
-// 签名
-String sign = "1"; // NOTE: 这里的签名需要注意的是`签名ID`，联系管理员获取
+
 ```
 
 - **单发短信**
@@ -82,7 +81,7 @@ import java.io.IOException;
  SmsSender smsSender = new SmsSender(20190002, "5f03a35d00ee52a21327ab048186a2h1");
         SmsSenderResult result = null;
         try {
-            result = smsSender.send("1", "这是一条测试短信", phoneNumbers[0], null, null);
+            result = smsSender.send(MessageType.GENERAL.getCode(), "【TCL酷友】这是一条测试短信", phoneNumbers[0], null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,7 +101,7 @@ import java.io.IOException;
  SmsSender smsSender = new SmsSender(20190002, "5f03a35d00ee52a21327ab048186a2h1");
         SmsSenderResult result = null;
         try {
-            result = smsSender.sendBatch("1", "这是一条测试短信", phoneNumbers, null, null);
+            result = smsSender.send(MessageType.GENERAL.getCode(),"【TCL集团】这是一条测试短信", phoneNumbers, null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

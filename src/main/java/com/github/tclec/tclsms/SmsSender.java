@@ -13,6 +13,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -32,33 +33,33 @@ public class SmsSender extends SmsBase {
     /**
      * 单发无变量短信
      *
-     * @param sign         签名id
+     * @param prodid       短信类型
      * @param msg          短信内容
      * @param phoneNumber 电话号码
      * @param report       是否需要状态报告，默认为false
      * @param extend       下发短信扩展码，可填空
      * @return {@link}SmsSenderResult
      */
-    public SmsSenderResult send(String sign, String msg, String phoneNumber,
+    public SmsSenderResult send(String prodid, String msg, String phoneNumber,
                                 String report, String extend)
             throws HTTPException, JSONException, IOException {
         ArrayList<String> phoneNumbers=new ArrayList<String>();
         phoneNumbers.add(phoneNumber);
-        return sendBatch(sign, msg, phoneNumbers, report, extend);
+        return send(prodid, msg, phoneNumbers, report, extend);
     }
 
     /**
      * 批量发送无变量短信
      *
-     * @param sign         签名id
+     * @param prodid       短信类型id
      * @param msg          短信内容
      * @param phoneNumbers 接收短信手机号码
      * @param report       是否需要状态报告，默认为false
      * @param extend       短信下发扩展码
      * @return {@link}SmsSenderResult
      */
-    public SmsSenderResult sendBatch(String sign, String msg, List<String> phoneNumbers
-            , String report, String extend)
+    public SmsSenderResult send(String prodid, String msg, List<String> phoneNumbers,
+                                String report, String extend)
             throws HTTPException, JSONException, IOException {
         long random = SmsSenderUtil.getRandom();
         //发送时间
@@ -70,7 +71,7 @@ public class SmsSender extends SmsBase {
 
         JSONObject body = new JSONObject()
                 .put("msg", msg)
-                .put("sign", sign)
+                .put("prodid", prodid)
                 .put("sig", signature)
                 .put("phone", phoneNumbers)
                 .put("time", time)
@@ -97,5 +98,11 @@ public class SmsSender extends SmsBase {
     }
 
 
+    public SmsSenderResult send(String prodid,String msg,String[] phoneNumbers,
+                                String report,String extend)
+            throws HTTPException,JSONException,IOException {
+        List<String> strings = Arrays.asList(phoneNumbers);
+        return send(prodid, msg, strings, report, extend);
+    }
 
 }
