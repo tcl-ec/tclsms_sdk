@@ -40,7 +40,7 @@ tclsms_sdk可以采用多种方式进行安装，我们提供以下三种方法�
 <dependency>
   <groupId>com.github.tcl-ec</groupId>
   <artifactId>tclsms</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
